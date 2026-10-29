@@ -22,7 +22,40 @@
         </div>
     </header>
 
+    <main>
+        <h1 class="page-title">Available Stays</h1>
+        <p class="page-subtitle">Browse and filter stays listed by companies. Each card shows its own average rating.</p>
 
+            <section class="filters">
+                <div class="filter-group">
+                    <label for="filter-location">Location:</label>
+                    <input type="text" id="filter-location" placeholder="e.g. Nairobi">
+                </div>
+
+                <div class="filter-group">
+                    <label for="filter-price">Max Price ($)</label>
+                    <input type="number" id="filter-price" placeholder="e.g. 100" min="0" step="1">
+                </div>
+
+                <div class="filter-group">
+                    <label for="filter-type">Type</label>
+                    <select id="filter-type">
+                        <option value="">All types</option>
+                        <option value="Hotel">Hotel</option>
+                        <option value="Apartment">Apartment</option>
+                        <option value="Villa">Villa</option>
+                        <option value="Hostel">Hostel</option>
+                        <option value="Guesthouse">Guesthouse</option>
+                    </select>
+                </div>
+
+                     <button type="button" id="clear-filters" class="btn-secondary">Clear</button>
+            </section>
+
+            <section id="stays-grid" class="stays-grid">
+                 <!-- inject Cards here by script.js -->
+            </section>
+    </main>
 
    
 </body>
