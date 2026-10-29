@@ -89,3 +89,84 @@ function ratingToStars(rating) {
 }
 
 
+
+
+
+
+
+
+
+
+// PAGE: ADD STAY (add-stay.html) 
+
+function initAddStayPage() {
+  // Get the form element. If it does not exist on this page, exit.
+  const form = document.getElementById("add-stay-form");
+  if (!form) return;
+
+  const successMsg = document.getElementById("success-message");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); 
+    clearErrors(); 
+
+    // Read the values the user typed
+    const name = document.getElementById("stay-name").value.trim();
+    const location = document.getElementById("stay-location").value.trim();
+    const price = document.getElementById("stay-price").value.trim();
+    const type = document.getElementById("stay-type").value;
+
+    //validation
+     let isValid = true;
+
+     if (name.length < 3) {
+            showError("name-error", "Name must be at least 3 characters.");
+            isValid = false;
+    }
+
+     if (!price || isNaN(price) || Number(price) <= 0) {
+      showError("price-error", "Price must be a positive number.");
+      isValid = false;
+    }
+
+     if (!type) {
+      showError("type-error", "Please select a stay type.");
+      isValid = false;
+    }
+
+     if (!isValid) return;                      // If any field failed validation, stop here
+
+
+     // Create a new stay object
+    const newStay = {
+      id: generateId(),
+      name: name,
+      location: location,
+      price: Number(price),
+      type: type,
+      createdAt: new Date().toISOString()
+    };
+
+    // Add it to the existing array and save
+    const stays = getStays();
+    stays.push(newStay);
+    saveStays(stays);
+
+     // Show success message and clear the form
+    successMsg.classList.add("show");
+    form.reset();
+
+      // Hide the success message after 3 seconds
+    setTimeout(() => {
+      successMsg.classList.remove("show");
+    }, 3000);
+  });
+}
+
+
+
+
+
+
+
+
