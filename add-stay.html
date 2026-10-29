@@ -28,12 +28,12 @@
             <p class="page-subtitle">Fill in the details below to add a new stay listing for your company.</p>
 
 
-             <div id="success-message" class="success-message">         <!-- Hidden by default. JavaScript adds the class "show" after a successful save. -->
+             <div id="success-message" class="success-message" hidden>         <!-- Hidden by default. JavaScript adds the class "show" after a successful save. -->
                 Stay added successfully! You can view it on the <a href="index.html">Stays page</a>.
              </div>
 
 
-             <section class="form-container">
+            <section class="form-container">
                 <form id="add-stay-form" novalidate>   <!-- novalidate turns off the browser's built-in validation so we can use our own JS validation -->
 
                     <div class="form-group">
@@ -65,10 +65,12 @@
                     <button type="submit" class="btn btn-primary">Add Stay</button>
                 </form> 
              </section>
-            </main>
+        </main>
             
             <footer>
                 <p>&copy; 2026 Tembea Savannah Stays. Built with HTML, CSS & JavaScript.</p>
             </footer>
-</body>
+
+            <script src="script.js"></script>
+    </body>
 </html>
