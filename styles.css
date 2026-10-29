@@ -68,7 +68,7 @@ position: sticky;        /*This makes the header stick to the top of the viewpor
 }
 
 nav ul {
-  display: flex;
+    display: flex;
     list-style: none;
     gap: 16px;
     flex-wrap: wrap;
@@ -80,7 +80,7 @@ nav a {
   font-weight: 500;
   transition: background 0.2s ease, color 0.2s ease;
   padding: 8px 12px;
-    border-radius: 8px;
+  border-radius: 8px;
 }
 
 nav a:hover,
@@ -89,5 +89,24 @@ nav a.active {
   color: var(--dark);
 }
 
+main {
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem; 
+ width: 100%;
+}
 
+.page-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary-dark);
+}
 
+.page-subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: var(--secondary);
+}
