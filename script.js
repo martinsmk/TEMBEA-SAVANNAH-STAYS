@@ -72,4 +72,20 @@ const samples = [
   saveStays(samples);
 }
 
+// Calculate average rating for ONE stay
+function getAverageForStay(stayId) {
+  const reviews = getReviews().filter(r => r.stayId === stayId); // only reviews for this stay
+  if (reviews.length === 0) return null;                         // no reviews yet
+
+  const sum = reviews.reduce((acc, r) => acc + r.rating, 0);     // add all ratings
+  return (sum / reviews.length).toFixed(1);                      // average rounded to 1 decimal
+}
+
+// Create star string from a number
+function ratingToStars(rating) {
+  if (rating === null) return "No ratings yet";
+  const full = Math.round(Number(rating)); // nearest whole number for display
+  return "★".repeat(full) + "☆".repeat(5 - full) + ` (${rating})`;
+}
+
 
