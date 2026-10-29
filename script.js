@@ -468,4 +468,45 @@ function initReviewsPage() {
   updateOverallAverage();
   renderReviews();
 }
+
+
+
+//Utility Functions
+
+// Show an error message under a specific field
+function showError(elementId, message) {
+  const el = document.getElementById(elementId);
+  if (el) {
+    el.textContent = message;
+    el.classList.add("show"); // CSS class makes it visible
+  }
+}
+
+// Hide all error messages and clear their text
+function clearErrors() {
+  document.querySelectorAll(".error-message").forEach(el => {
+    el.classList.remove("show");
+    el.textContent = "";
+  });
+}
+
+// Convert any user-entered text into safe HTML (prevents XSS attacks)
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text; // browser automatically escapes special characters
+  return div.innerHTML;
+}
+
+/* =====================================================
+   Initialize everything when the page finishes loading
+   ===================================================== */
+document.addEventListener("DOMContentLoaded", function () {
+  // First thing: make sure sample data exists if the storage is empty
+  seedSampleData();
+
+  // Then start the page-specific logic
+  initAddStayPage();
+  initStaysPage();
+  initReviewsPage();
+});
   
