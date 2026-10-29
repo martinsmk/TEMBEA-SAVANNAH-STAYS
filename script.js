@@ -24,5 +24,52 @@ function saveReviews(reviews) {
   localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews));
 }
 
+// Generate unique ID 
+function generateId() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2);
+}
+
+//  Seed sample data on first load
+function seedSampleData() {
+  const existing = getStays();
+  if (existing.length > 0) return; 
+
+const samples = [
+    {
+      id: generateId(),
+      name: "Maasai Mara Safari Tent",
+      location: "Maasai Mara, Kenya",
+      price: 180,
+      type: "Villa",
+      createdAt: new Date().toISOString()
+    },
+    {
+      id: generateId(),
+      name: "Serengeti Sunrise Lodge",
+      location: "Serengeti, Tanzania",
+      price: 220,
+      type: "Hotel",
+      createdAt: new Date().toISOString()
+    },
+    {
+      id: generateId(),
+      name: "Amboseli Elephant View",
+      location: "Amboseli, Kenya",
+      price: 145,
+      type: "Apartment",
+      createdAt: new Date().toISOString()
+    },
+    {
+      id: generateId(),
+      name: "Nairobi Gateway Guesthouse",
+      location: "Nairobi, Kenya",
+      price: 65,
+      type: "Guesthouse",
+      createdAt: new Date().toISOString()
+    }
+  ];
+
+  saveStays(samples);
+}
 
 
