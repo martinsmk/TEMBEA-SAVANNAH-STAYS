@@ -22,6 +22,77 @@
     </div>
   </header>
 
+
+  <main>
+    <h1 class="page-title">Reviews</h1>
+    <p class="page-subtitle">Share your experience and see what others think. Each stay also shows its own average on the Stays page.</p>
+
+        <!-- Two-column layout: form on the left, list on the right -->
+    <div class="reviews-layout">
+
+      <!-- LEFT COLUMN: Average + Form -->
+      <section>
+        <!-- Overall average rating box (filled by JavaScript) -->
+         <div id="average-rating" class="average-box">
+          <div class="score">-</div>
+          <div class="label">Loading...</div>
+        </div>
+
+        <!-- Success message (hidden until a review is saved) -->
+        <div id="review-success" class="success-message">
+          Thank you! Your review has been added.
+        </div>
+
+        <div class="form-container">
+          <form id="review-form" novalidate>
+
+            <div class="form-group">
+              <label for="review-stay">Select Stay *</label>
+              <!-- Options are filled dynamically by JavaScript from localStorage -->
+              <select id="review-stay" required>
+                <option value="">-- Select a stay --</option>
+              </select>
+              <div id="stay-error" class="error-message"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="review-rating">Rating *</label>
+              <select id="review-rating" required>
+                <option value="">-- Choose rating --</option>
+                <option value="5">5 - Excellent</option>
+                <option value="4">4 - Very Good</option>
+                <option value="3">3 - Average</option>
+                <option value="2">2 - Poor</option>
+                <option value="1">1 - Terrible</option>
+              </select>
+              <div id="rating-error" class="error-message"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="review-comment">Your Comment *</label>
+              <textarea id="review-comment" rows="4" placeholder="Tell us about your experience..." required></textarea>
+              <div id="comment-error" class="error-message"></div>
+            </div>
+
+            <button type="submit" class="btn btn-success">Submit Review</button>
+          </form>
+        </div>
+      </section>
+
+
+
+            <!-- RIGHT COLUMN: List of all reviews -->
+      <section>
+        <h2>All Reviews</h2>
+        <!-- JavaScript injects review cards into this container -->
+        <div id="reviews-list">
+        </div>
+      </section>
+    </div>
+  </main>
+
+
+
   
 </body>
 </html>
