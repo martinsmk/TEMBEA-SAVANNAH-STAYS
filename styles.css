@@ -1,4 +1,21 @@
 
+:root {
+  --primary: #c45c26;          /* Warm terracotta / clay */
+  --primary-dark: #9a4519;     /* Darker terracotta */
+  --secondary: #2d6a4f;        /* Deep savannah green */
+  --secondary-light: #40916c;  /* Lighter green */
+  --accent: #e9c46a;           /* Golden savanna grass */
+  --danger: #bc4749;           /* Soft red for delete */
+  --dark: #2b2118;             /* Deep earth brown */
+  --gray: #6b5b4f;             /* Warm gray-brown */
+  --sand: #f4e9d8;             /* Soft sand background */
+  --cream: #faf6f0;            /* Creamy white */
+  --white: #ffffff;
+  --border: #e0d5c5;           /* Warm border */
+  --shadow: 0 6px 20px rgba(43, 33, 24, 0.12);
+  --radius: 12px;
+  --font: 'Segoe UI';
+}
 
 * {
   margin: 0;
@@ -14,5 +31,37 @@ body {
    line-height: 1.6;
   display: flex;
   flex-direction: column;
+}
+
+header {
+  background: linear-gradient(135deg, #2d6a4f, #1b4332);
+  padding: 16px 0;
+position: sticky;        /*This makes the header stick to the top of the viewport*/
+  top: 0;       
+  z-index: 100;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+   flex-wrap: wrap;
+   gap: 16px;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing:-0.3px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.logo span {
+  color: var(--accent);
 }
 
