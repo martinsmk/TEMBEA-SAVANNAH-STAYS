@@ -290,3 +290,182 @@ function initStaysPage() {
 
 
 
+
+
+
+
+
+
+
+   // PAGE: REVIEWS (reviews.html)
+function initReviewsPage() {
+  const form = document.getElementById("review-form");
+  if (!form) return;
+
+  const staySelect = document.getElementById("review-stay");
+  const reviewsList = document.getElementById("reviews-list");
+  const averageBox = document.getElementById("average-rating");
+  const successMsg = document.getElementById("review-success");
+
+
+  // Fill the dropdown with every stay currently stored
+  function populateStays() {
+    const stays = getStays();
+    staySelect.innerHTML = '<option value="">-- Select a stay --</option>';
+
+    if (stays.length === 0) {
+      staySelect.innerHTML = '<option value="">No stays available. Add one first.</option>';
+      return;
+    }
+
+     stays.forEach(stay => {
+      const option = document.createElement("option");
+      option.value = stay.id;
+      // Show name + location + current average so the user knows the quality
+      const avg = getAverageForStay(stay.id);
+      const avgText = avg ? ` ★ ${avg}` : "";
+      option.textContent = `${stay.name} (${stay.location})${avgText}`;
+      staySelect.appendChild(option);
+    });
+  }
+
+  // Overall average across ALL reviews (still useful as a site-wide number)
+  function updateOverallAverage() {
+    const reviews = getReviews();
+    if (reviews.length === 0) {
+      averageBox.innerHTML = `
+        <div class="score">—</div>
+        <div class="label">No reviews yet</div>
+      `;
+      return;
+    }
+
+    const sum = reviews.reduce((acc, r) => acc + r.rating, 0);
+    const avg = (sum / reviews.length).toFixed(1);
+
+    averageBox.innerHTML = `
+      <div class="score">${avg}</div>
+      <div class="label">Overall average from ${reviews.length} review${reviews.length > 1 ? "s" : ""}</div>
+    `;
+  }
+
+  // Draw every review as a card (newest first)
+  function renderReviews() {
+    const reviews = getReviews();
+    const stays = getStays();
+
+    reviewsList.innerHTML = "";
+
+    if (reviews.length === 0) {
+      reviewsList.innerHTML = `
+        <div class="no-data">
+          <div>⭐</div>
+          <p>No reviews yet. Be the first to leave one!</p>
+        </div>
+      `;
+      return;
+    }
+
+    // Newest first
+    reviews.slice().reverse().forEach(review => {
+      const stay = stays.find(s => s.id === review.stayId);
+      const stayName = stay ? stay.name : "Unknown stay (deleted)";
+
+      const stars = "★".repeat(review.rating) + "☆".repeat(5 - review.rating);
+
+      const card = document.createElement("div");
+      card.className = "review-card";
+      card.innerHTML = `
+        <div class="review-header">
+          <span class="review-stars">${stars}</span>
+          <span class="review-stay">${escapeHtml(stayName)}</span>
+        </div>
+        <p class="review-comment">${escapeHtml(review.comment)}</p>
+        <div class="review-footer">
+          <small>${new Date(review.createdAt).toLocaleDateString()}</small>
+          <button class="btn btn-danger btn-sm delete-review-btn" data-id="${review.id}">Delete</button>
+        </div>
+      `;
+      reviewsList.appendChild(card);
+    });
+
+     // Attach delete listeners to the new buttons
+    document.querySelectorAll(".delete-review-btn").forEach(btn => {
+      btn.addEventListener("click", function () {
+        const id = this.dataset.id;
+        deleteReview(id);
+      });
+    });
+  }
+
+   // Remove one review by its id
+    function deleteReview(id) {
+    if (!confirm("Delete this review?")) return;
+
+    const reviews = getReviews().filter(r => r.id !== id);
+    saveReviews(reviews);
+
+     // Refresh both the list and the overall average
+    updateOverallAverage();
+    renderReviews();
+    // Also refresh the dropdown so averages update
+    populateStays();
+  }
+
+  // Handle form submission
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    clearErrors();
+
+    const stayId = staySelect.value;
+    const rating = document.getElementById("review-rating").value;
+    const comment = document.getElementById("review-comment").value.trim();
+
+    let isValid = true;
+
+    if (!stayId) {
+      showError("stay-error", "Please select a stay.");
+      isValid = false;
+    }
+
+    if (!rating || rating < 1 || rating > 5) {
+      showError("rating-error", "Please choose a rating from 1 to 5.");
+      isValid = false;
+    }
+
+    if (comment.length < 5) {
+      showError("comment-error", "Comment must be at least 5 characters.");
+      isValid = false;
+    }
+
+    if (!isValid) return;
+
+    // Create and save the new review
+    const newReview = {
+      id: generateId(),
+      stayId: stayId,
+      rating: Number(rating),
+      comment: comment,
+      createdAt: new Date().toISOString()
+    };
+
+    const reviews = getReviews();
+    reviews.push(newReview);
+    saveReviews(reviews);
+
+    // Update the UI
+    successMsg.classList.add("show");
+    form.reset();
+    updateOverallAverage();
+    renderReviews();
+    populateStays(); // so the dropdown shows the new average
+
+    setTimeout(() => successMsg.classList.remove("show"), 3000);
+  });
+
+  // Initial load of the page
+  populateStays();
+  updateOverallAverage();
+  renderReviews();
+}
+  
