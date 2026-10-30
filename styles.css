@@ -508,3 +508,19 @@ box-shadow: 0 0 0 3px rgba(196, 92, 38, 0.18);
   margin-bottom: 0.8rem;
   display: block;
 }
+
+
+
+
+/*FOOTERS*/
+footer {
+  background: #1b4332;
+  color: #b7c9b7;
+  text-align: center;
+  padding: 1.6rem;
+  margin-top: 3rem;
+  font-size: 0.9rem;
+}
+
+
+
