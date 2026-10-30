@@ -68,4 +68,4 @@ On the very first load the site seeds 4 sample stays so it is never empty.
 
 ## Author
 
-Martins – Final Indipendent Project- FSD-FTH7
+Martins – Final Independent Project- FSD-FTH7
